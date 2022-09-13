@@ -1,39 +1,58 @@
-export class WorkflowEditorState {
-  activeForm: WorkflowForm = new WorkflowForm()
-  componentLibrary: ComponentLibrary = new ComponentLibrary()
+import { KeyObject } from "crypto"
+
+export interface WorkflowEditorState {
+  activeForm: WorkflowForm
+  //componentLibrary: ComponentLibrary
+  // activeForm: WorkflowForm = new WorkflowForm()
+  // componentLibrary: ComponentLibrary = new ComponentLibrary()
 }
 
-export class WorkflowForm {
-  components: FormComponent[] = []
+export interface WorkflowForm {
+  //components: FormComponent[] = []
+  components: FormComponent[]
 
-  addComponent = (type: ComponentType) => {
-    this.components.push(new FormComponent(type))
-  }
+  // addComponent = (type: ComponentType) => {
+  //   this.components.push(new FormComponent(type))
+  // }
 
-  getComponent = (index: ComponentIndex) => {
-    return this.components[index].clone()
-  }
+  // getComponent = (index: ComponentIndex) => {
+  //   return this.components[index].clone()
+  // }
 
-  setComponent = (index: ComponentIndex, value: FormComponent) => {
-    this.components[index] = value
-  }
+  // setComponent = (index: ComponentIndex, value: FormComponent) => {
+  //   this.components[index] = value
+  // }
 }
 
-export class FormComponent {
-  constructor(type: ComponentType) {
-    this.schema = new ComponentSchema(type)
-  }
+export interface FormComponent {
+  // constructor(type: ComponentType) {
+  //   this.schema = new ComponentSchema(type)
+  // }
+
   schema: ComponentSchema
-  isRequired: boolean = false
+  //isRequired: boolean = false
+  isRequired: boolean
 
-  clone = () => {
-    const clone = new FormComponent(this.schema.type)
-    clone.isRequired = this.isRequired
+  // clone = () => {
+  //   const clone = new FormComponent(this.schema.type)
+  //   clone.isRequired = this.isRequired
 
-    return clone
-  }
+  //   return clone
+  // }
 }
 
+export const createFormComponent = (type: ComponentType) => {
+  const component: FormComponent = {
+    schema: {
+      type: type,
+    },
+    isRequired: false,
+  }
+
+  return component
+}
+
+export class FormComponentFactory {}
 export class ComponentLibrary {
   componentTypes: ComponentType[] = []
 }
@@ -42,10 +61,11 @@ export enum ComponentType {
   InputBox,
 }
 
-export class ComponentSchema {
-  constructor(type: ComponentType) {
-    this.type = type
-  }
+export interface ComponentSchema {
+  // constructor(type: ComponentType) {
+  //   this.type = type
+  // }
+
   type: ComponentType
 }
 
