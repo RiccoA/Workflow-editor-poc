@@ -4,7 +4,7 @@ import {
   WorkflowEditorState,
   ComponentIndex,
   ComponentType,
-} from "./WorkflowEditorState"
+} from "./workflowEditorState"
 
 export const useWorkflowEditorState = () => {
   const [workflowEditorState, setWorkflowEditorState] =
@@ -17,7 +17,8 @@ export const useWorkflowEditorState = () => {
         newState.activeForm.addComponent(component.schema.type)
       )
 
-      newState.activeForm.components.push(new FormComponent(type))
+      newState.activeForm.addComponent(type)
+
       setWorkflowEditorState(newState)
     },
     [workflowEditorState.activeForm.components]
@@ -37,28 +38,23 @@ export const useWorkflowEditorState = () => {
   )
 
   const swapTwoComponents = useCallback(
-    (
-      primaryComponentIndex: ComponentIndex,
-      secondaryComponentIndex: ComponentIndex
-    ) => {
+    (primaryIndex: ComponentIndex, secondaryIndex: ComponentIndex) => {
       const newState = new WorkflowEditorState()
       workflowEditorState.activeForm.components.forEach((component) =>
         newState.activeForm.addComponent(component.schema.type)
       )
 
       const primaryComponent =
-        workflowEditorState.activeForm.components[primaryComponentIndex].clone()
+        workflowEditorState.activeForm.getComponent(primaryIndex)
       const secondaryComponent =
-        workflowEditorState.activeForm.components[
-          secondaryComponentIndex
-        ].clone()
+        workflowEditorState.activeForm.getComponent(secondaryIndex)
 
-      newState.activeForm.components[primaryComponentIndex] = secondaryComponent
-      newState.activeForm.components[secondaryComponentIndex] = primaryComponent
+      newState.activeForm.setComponent(primaryIndex, secondaryComponent)
+      newState.activeForm.setComponent(secondaryIndex, primaryComponent)
 
       setWorkflowEditorState(newState)
     },
-    [workflowEditorState.activeForm.components]
+    [workflowEditorState.activeForm]
   )
 
   const editComponent = useCallback(
@@ -67,7 +63,7 @@ export const useWorkflowEditorState = () => {
       workflowEditorState.activeForm.components.forEach((component) =>
         newState.activeForm.addComponent(component.schema.type)
       )
-      newState.activeForm.components[indexToEditAt] = component
+      newState.activeForm.setComponent(indexToEditAt, component)
       setWorkflowEditorState(newState)
     },
     [workflowEditorState.activeForm.components]

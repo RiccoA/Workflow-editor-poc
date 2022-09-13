@@ -9,6 +9,14 @@ export class WorkflowForm {
   addComponent = (type: ComponentType) => {
     this.components.push(new FormComponent(type))
   }
+
+  getComponent = (index: ComponentIndex) => {
+    return this.components[index].clone()
+  }
+
+  setComponent = (index: ComponentIndex, value: FormComponent) => {
+    this.components[index] = value
+  }
 }
 
 export class FormComponent {
