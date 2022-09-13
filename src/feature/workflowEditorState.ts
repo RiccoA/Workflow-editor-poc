@@ -1,5 +1,3 @@
-import { KeyObject } from "crypto"
-
 export interface WorkflowEditorState {
   activeForm: WorkflowForm
   //componentLibrary: ComponentLibrary
@@ -39,6 +37,16 @@ export interface FormComponent {
 
   //   return clone
   // }
+}
+
+export const cloneFormComponent = (component: FormComponent) => {
+  const clone: FormComponent = {
+    schema: {
+      type: component.schema.type,
+    },
+    isRequired: component.isRequired,
+  }
+  return clone
 }
 
 export const createFormComponent = (type: ComponentType) => {

@@ -1,15 +1,19 @@
 import { renderHook, act } from "@testing-library/react"
 import { useWorkflowEditorState } from "./useWorkflowEditorState"
-import { ComponentType } from "./workflowEditorState"
+import { cloneFormComponent, ComponentType } from "./workflowEditorState"
 
 test("should have one component after adding", () => {
   const { result } = renderHook(() => useWorkflowEditorState())
-  expect(result.current.workflowEditorState.activeForm.components.length).toBe(0)
+  expect(result.current.workflowEditorState.activeForm.components.length).toBe(
+    0
+  )
   act(() => {
     result.current.addComponent(ComponentType.Headline)
   })
 
-  expect(result.current.workflowEditorState.activeForm.components.length).toBe(1)
+  expect(result.current.workflowEditorState.activeForm.components.length).toBe(
+    1
+  )
 })
 test("should have two components after adding two", () => {
   const { result } = renderHook(() => useWorkflowEditorState())
@@ -49,29 +53,33 @@ test("should remove component from state", () => {
   )
 })
 
-// test("should edit component at index", () => {
-//   const { result } = renderHook(() => useWorkflowEditorState())
+test("should edit component at index", () => {
+  const { result } = renderHook(() => useWorkflowEditorState())
 
-//   act(() => {
-//     result.current.addComponent(ComponentType.Headline)
-//   })
+  act(() => {
+    result.current.addComponent(ComponentType.Headline)
+  })
 
-//   expect(result.current.workflowEditorState.activeForm.components.length).toBe(
-//     1
-//   )
+  expect(result.current.workflowEditorState.activeForm.components.length).toBe(
+    1
+  )
+  expect(
+    result.current.workflowEditorState.activeForm.components[0].isRequired
+  ).toBe(false)
 
-//   const componentToEdit =
-//     result.current.workflowEditorState.activeForm.components[0]
-//   componentToEdit.isRequired = true
+  const componentToEdit = cloneFormComponent(
+    result.current.workflowEditorState.activeForm.components[0]
+  )
+  componentToEdit.isRequired = true
 
-//   act(() => {
-//     result.current.editComponent(1, componentToEdit)
-//   })
+  act(() => {
+    result.current.editComponent(0, componentToEdit)
+  })
 
-//   expect(
-//     result.current.workflowEditorState.activeForm.components[1].isRequired
-//   ).toBe(true)
-// })
+  expect(
+    result.current.workflowEditorState.activeForm.components[0].isRequired
+  ).toBe(true)
+})
 
 // test("should swap two components", () => {
 //   const { result } = renderHook(() => useWorkflowEditorState())

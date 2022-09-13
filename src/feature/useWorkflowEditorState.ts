@@ -14,8 +14,6 @@ export const useWorkflowEditorState = () => {
       components: [],
     },
   }
-  const [OLDworkflowEditorState, setWorkflowEditorState] =
-    useState<WorkflowEditorState>(init)
 
   const [workflowEditorState, dispatch] = useImmerReducer((draft, action) => {
     switch (action.type) {
@@ -30,6 +28,8 @@ export const useWorkflowEditorState = () => {
       case "swapTwo":
         break
       case "edit":
+        draft.activeForm.components[action.payload.indexToEditAt] =
+          action.payload.component
         break
       default:
         break
@@ -46,13 +46,6 @@ export const useWorkflowEditorState = () => {
   const removeComponent = useCallback(
     (indexToRemoveAt: ComponentIndex) => {
       dispatch({ type: "remove", payload: { indexToRemoveAt } })
-      // const newState = new WorkflowEditorState()
-      // OLDworkflowEditorState.activeForm.components.forEach(
-      //   (component, index) =>
-      //     indexToRemoveAt !== index ??
-      //     newState.activeForm.addComponent(component.schema.type)
-      // )
-      // setWorkflowEditorState(newState)
     },
     [dispatch]
   )
@@ -77,21 +70,17 @@ export const useWorkflowEditorState = () => {
   //   [OLDworkflowEditorState.activeForm]
   // )
 
-  // const editComponent = useCallback(
-  //   (indexToEditAt: ComponentIndex, component: FormComponent) => {
-  //     const newState = new WorkflowEditorState()
-  //     OLDworkflowEditorState.activeForm.components.forEach((component) =>
-  //       newState.activeForm.addComponent(component.schema.type)
-  //     )
-  //     newState.activeForm.setComponent(indexToEditAt, component)
-  //     setWorkflowEditorState(newState)
-  //   },
-  //   [OLDworkflowEditorState.activeForm.components]
-  // )
+  const editComponent = useCallback(
+    (indexToEditAt: ComponentIndex, component: FormComponent) => {
+      dispatch({ type: "edit", payload: { indexToEditAt, component } })
+    },
+    [dispatch]
+  )
 
   return {
     workflowEditorState,
     addComponent,
     removeComponent,
+    editComponent,
   }
 }
