@@ -7,6 +7,16 @@ export type WorkflowForm = {
   components: FormComponent[]
 }
 
+export const createWorkflowEditorState = () => {
+  const state: WorkflowEditorState = {
+    activeForm: {
+      components: [],
+    },
+  }
+
+  return state
+}
+
 export type FormComponent = {
   schema: ComponentSchema
   isRequired: boolean

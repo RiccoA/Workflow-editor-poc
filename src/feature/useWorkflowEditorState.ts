@@ -2,20 +2,14 @@ import { useCallback } from "react"
 import { useImmerReducer } from "use-immer"
 import {
   FormComponent,
-  WorkflowEditorState,
   ComponentIndex,
   ComponentType,
   createFormComponent,
   cloneFormComponent,
+  createWorkflowEditorState,
 } from "./workflowEditorState"
 
 export const useWorkflowEditorState = () => {
-  const init: WorkflowEditorState = {
-    activeForm: {
-      components: [],
-    },
-  }
-
   const [workflowEditorState, dispatch] = useImmerReducer((draft, action) => {
     switch (action.type) {
       case "add":
@@ -47,7 +41,7 @@ export const useWorkflowEditorState = () => {
       default:
         break
     }
-  }, init)
+  }, createWorkflowEditorState())
 
   const addComponent = useCallback(
     (type: ComponentType, index: ComponentIndex = 0) => {
