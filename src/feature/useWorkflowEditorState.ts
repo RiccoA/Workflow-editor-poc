@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import { useCallback } from "react"
 import { useImmerReducer } from "use-immer"
 import {
   FormComponent,
@@ -6,6 +6,7 @@ import {
   ComponentIndex,
   ComponentType,
   createFormComponent,
+  cloneFormComponent,
 } from "./workflowEditorState"
 
 export const useWorkflowEditorState = () => {
@@ -26,6 +27,18 @@ export const useWorkflowEditorState = () => {
         draft.activeForm.components.splice(action.payload.indexToRemoveAt, 1)
         break
       case "swapTwo":
+        const primaryComponent = cloneFormComponent(
+          draft.activeForm.components[action.payload.primaryIndex]
+        )
+        const secondaryComponent = cloneFormComponent(
+          draft.activeForm.components[action.payload.secondaryIndex]
+        )
+
+        draft.activeForm.components[action.payload.primaryIndex] =
+          secondaryComponent
+        draft.activeForm.components[action.payload.secondaryIndex] =
+          primaryComponent
+
         break
       case "edit":
         draft.activeForm.components[action.payload.indexToEditAt] =
@@ -47,28 +60,16 @@ export const useWorkflowEditorState = () => {
     (indexToRemoveAt: ComponentIndex) => {
       dispatch({ type: "remove", payload: { indexToRemoveAt } })
     },
+
     [dispatch]
   )
 
-  // const swapTwoComponents = useCallback(
-  //   (primaryIndex: ComponentIndex, secondaryIndex: ComponentIndex) => {
-  //     const newState = new WorkflowEditorState()
-  //     OLDworkflowEditorState.activeForm.components.forEach((component) =>
-  //       newState.activeForm.addComponent(component.schema.type)
-  //     )
-
-  //     const primaryComponent =
-  //       OLDworkflowEditorState.activeForm.getComponent(primaryIndex)
-  //     const secondaryComponent =
-  //       OLDworkflowEditorState.activeForm.getComponent(secondaryIndex)
-
-  //     newState.activeForm.setComponent(primaryIndex, secondaryComponent)
-  //     newState.activeForm.setComponent(secondaryIndex, primaryComponent)
-
-  //     setWorkflowEditorState(newState)
-  //   },
-  //   [OLDworkflowEditorState.activeForm]
-  // )
+  const swapTwoComponents = useCallback(
+    (primaryIndex: ComponentIndex, secondaryIndex: ComponentIndex) => {
+      dispatch({ type: "swapTwo", payload: { primaryIndex, secondaryIndex } })
+    },
+    [dispatch]
+  )
 
   const editComponent = useCallback(
     (indexToEditAt: ComponentIndex, component: FormComponent) => {
@@ -82,5 +83,6 @@ export const useWorkflowEditorState = () => {
     addComponent,
     removeComponent,
     editComponent,
+    swapTwoComponents,
   }
 }

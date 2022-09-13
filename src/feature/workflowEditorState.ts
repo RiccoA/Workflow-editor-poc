@@ -1,42 +1,15 @@
 export interface WorkflowEditorState {
   activeForm: WorkflowForm
   //componentLibrary: ComponentLibrary
-  // activeForm: WorkflowForm = new WorkflowForm()
-  // componentLibrary: ComponentLibrary = new ComponentLibrary()
 }
 
-export interface WorkflowForm {
-  //components: FormComponent[] = []
+export type WorkflowForm = {
   components: FormComponent[]
-
-  // addComponent = (type: ComponentType) => {
-  //   this.components.push(new FormComponent(type))
-  // }
-
-  // getComponent = (index: ComponentIndex) => {
-  //   return this.components[index].clone()
-  // }
-
-  // setComponent = (index: ComponentIndex, value: FormComponent) => {
-  //   this.components[index] = value
-  // }
 }
 
-export interface FormComponent {
-  // constructor(type: ComponentType) {
-  //   this.schema = new ComponentSchema(type)
-  // }
-
+export type FormComponent = {
   schema: ComponentSchema
-  //isRequired: boolean = false
   isRequired: boolean
-
-  // clone = () => {
-  //   const clone = new FormComponent(this.schema.type)
-  //   clone.isRequired = this.isRequired
-
-  //   return clone
-  // }
 }
 
 export const cloneFormComponent = (component: FormComponent) => {
@@ -60,7 +33,6 @@ export const createFormComponent = (type: ComponentType) => {
   return component
 }
 
-export class FormComponentFactory {}
 export class ComponentLibrary {
   componentTypes: ComponentType[] = []
 }
@@ -69,11 +41,7 @@ export enum ComponentType {
   InputBox,
 }
 
-export interface ComponentSchema {
-  // constructor(type: ComponentType) {
-  //   this.type = type
-  // }
-
+export type ComponentSchema = {
   type: ComponentType
 }
 

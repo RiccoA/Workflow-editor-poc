@@ -81,25 +81,25 @@ test("should edit component at index", () => {
   ).toBe(true)
 })
 
-// test("should swap two components", () => {
-//   const { result } = renderHook(() => useWorkflowEditorState())
+test("should swap two components", () => {
+  const { result } = renderHook(() => useWorkflowEditorState())
 
-//   act(() => {
-//     result.current.addComponent(ComponentType.Headline)
-//   })
+  act(() => {
+    result.current.addComponent(ComponentType.Headline)
+  })
 
-//   act(() => {
-//     result.current.addComponent(ComponentType.InputBox)
-//   })
+  act(() => {
+    result.current.addComponent(ComponentType.InputBox)
+  })
 
-//   expect(
-//     result.current.workflowEditorState.activeForm.components[0].schema.type
-//   ).toBe(ComponentType.Headline)
+  expect(
+    result.current.workflowEditorState.activeForm.components[0].schema.type
+  ).toBe(ComponentType.Headline)
 
-//   act(() => {
-//     result.current.swapTwoComponents(0, 1)
-//   })
-//   expect(
-//     result.current.workflowEditorState.activeForm.components[1].schema.type
-//   ).toBe(ComponentType.Headline)
-// })
+  act(() => {
+    result.current.swapTwoComponents(0, 1)
+  })
+  expect(
+    result.current.workflowEditorState.activeForm.components[1].schema.type
+  ).toBe(ComponentType.Headline)
+})
