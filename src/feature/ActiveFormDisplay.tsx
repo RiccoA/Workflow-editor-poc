@@ -1,5 +1,6 @@
 import { useCallback } from "react"
 import { useWorkFlowEditorContext } from "./WorkflowEditorContext"
+import { useDroppable } from "@dnd-kit/core"
 import {
   ComponentIndex,
   FormComponent,
@@ -7,10 +8,16 @@ import {
 } from "./workflowEditorState"
 
 export const ActiveFormDisplay = () => {
+  const { isOver, setNodeRef } = useDroppable({
+    id: "droppable",
+  })
+  const style = {
+    color: isOver ? "green" : undefined,
+  }
   const [workflowEditorState] = useWorkFlowEditorContext()
   const activeForm = workflowEditorState.activeForm
   return (
-    <div>
+    <div ref={setNodeRef} style={style}>
       <h2>Active Form</h2>
       <ActiveFormComponentList activeForm={activeForm} />
     </div>
@@ -57,12 +64,13 @@ const ActiveFormComponent = ({
     setSelectedComponent(index)
   }, [index, setSelectedComponent])
 
-  const name = component.schema.type
+  const type = component.schema.type.toString()
   const isRequired = component.isRequired ? "true" : "false"
 
   return (
     <div>
-      <div>{name}</div>
+      <div>Index: {index} </div>
+      <div>Type: {type}</div>
       <div>Is required: {isRequired}</div>
 
       <button onClick={setSelectedComponentHandler}>Select</button>

@@ -1,6 +1,7 @@
 import { useCallback } from "react"
 import { useWorkFlowEditorContext } from "./WorkflowEditorContext"
 import { ComponentType } from "./workflowEditorState"
+import { useDraggable } from "@dnd-kit/core"
 
 export const ComponentLibrary = () => {
   return (
@@ -18,14 +19,25 @@ type ComponentOptionProps = {
 }
 
 const ComponentOption = ({ type, name }: ComponentOptionProps) => {
-  const [, addComponent] = useWorkFlowEditorContext()
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: type.toString(),
+  })
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : undefined
 
+  const [, addComponent] = useWorkFlowEditorContext()
   const addHandler = useCallback(() => {
     addComponent(type)
   }, [addComponent, type])
+
   return (
     <div>
-      <button onClick={addHandler}>{name}</button>
+      <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
+        {name}
+      </button>
     </div>
   )
 }

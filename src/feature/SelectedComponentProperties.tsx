@@ -8,7 +8,7 @@ export const SelectedComponentProperties = () => {
 
   const selectedComponent = useMemo(
     () =>
-      workflowEditorState.selectedComponent
+      workflowEditorState.selectedComponent !== undefined
         ? getComponent(workflowEditorState.selectedComponent)
         : undefined,
     [getComponent, workflowEditorState.selectedComponent]
@@ -35,8 +35,8 @@ export const SelectedComponentProperties = () => {
 
       {hasSelectedComponent && (
         <div>
-          <span></span>
-          Is required?
+          <div>Index: {workflowEditorState.selectedComponent}</div>
+          <div>Is required?</div>
           <select value={isRequiredString} onChange={isRequiredHandler}>
             <option value="true">Yes</option>
             <option value="false">No</option>
