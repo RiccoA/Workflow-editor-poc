@@ -21,12 +21,17 @@ export type swapTwoComponentsType = (
   secondaryIndex: ComponentIndex
 ) => void
 
+export type setSelectedComponentType = (
+  selectedComponent: ComponentIndex
+) => void
+
 export type useWorkflowEditorStateType = () => [
   WorkflowEditorState,
   addComponentType,
   removeComponentType,
   editComponentType,
-  swapTwoComponentsType
+  swapTwoComponentsType,
+  setSelectedComponentType
 ]
 
 export const useWorkflowEditorState: useWorkflowEditorStateType = () => {
@@ -63,12 +68,20 @@ export const useWorkflowEditorState: useWorkflowEditorStateType = () => {
     [dispatch]
   )
 
+  const setSelectedComponent = useCallback(
+    (selectedComponent: ComponentIndex) => {
+      dispatch({ type: "setSelectedComponent", payload: { selectedComponent } })
+    },
+    [dispatch]
+  )
+
   return [
     workflowEditorState,
     addComponent,
     removeComponent,
     editComponent,
     swapTwoComponents,
+    setSelectedComponent,
   ]
 }
 const reducer = (draft: WorkflowEditorState, action: any) => {
@@ -96,6 +109,9 @@ const reducer = (draft: WorkflowEditorState, action: any) => {
     case "edit":
       draft.activeForm.components[action.payload.indexToEditAt] =
         action.payload.component
+      break
+    case "setSelectedComponent":
+      draft.selectedComponent = action.payload.selectedComponent
       break
     default:
       break

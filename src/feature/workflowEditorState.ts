@@ -1,5 +1,6 @@
 export interface WorkflowEditorState {
   activeForm: WorkflowForm
+  selectedComponent: MaybeComponentIndex
   //componentLibrary: ComponentLibrary
 }
 
@@ -12,6 +13,7 @@ export const createWorkflowEditorState = () => {
     activeForm: {
       components: [],
     },
+    selectedComponent: undefined,
   }
 
   return state
@@ -56,3 +58,4 @@ export type ComponentSchema = {
 }
 
 export type ComponentIndex = number
+export type MaybeComponentIndex = ComponentIndex | undefined 

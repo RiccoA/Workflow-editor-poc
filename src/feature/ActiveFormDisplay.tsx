@@ -38,7 +38,8 @@ const ActiveFormComponent = ({
   index,
   component,
 }: ActiveFormComponentProps) => {
-  const [, , removeComponent, , swapTwoComponents] = useWorkFlowEditorContext()
+  const [, , removeComponent, , swapTwoComponents, setSelectedComponent] =
+    useWorkFlowEditorContext()
 
   const removeHandler = useCallback(() => {
     removeComponent(index)
@@ -52,6 +53,10 @@ const ActiveFormComponent = ({
     swapTwoComponents(index, index + 1)
   }, [index, swapTwoComponents])
 
+  const setSelectedComponentHandler = useCallback(() => {
+    setSelectedComponent(index)
+  }, [index, setSelectedComponent])
+
   const name = component.schema.type
   const isRequired = component.isRequired ? "true" : "false"
 
@@ -60,6 +65,7 @@ const ActiveFormComponent = ({
       <div>{name}</div>
       <div>Is required: {isRequired}</div>
 
+      <button onClick={setSelectedComponentHandler}>Select</button>
       <button onClick={moveUpHandler}>Move Up</button>
       <button onClick={moveDownHandler}>Move Down</button>
       <button onClick={removeHandler}>Remove</button>

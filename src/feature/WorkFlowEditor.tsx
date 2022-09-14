@@ -5,8 +5,7 @@ import { useWorkFlowEditorContext } from "./WorkflowEditorContext"
 import { cloneFormComponent } from "./workflowEditorState"
 
 export const WorkFlowEditor = () => {
-  const [workflowEditorState, , , editComponent, swapTwoComponents] =
-    useWorkFlowEditorContext()
+  const [workflowEditorState, , , editComponent] = useWorkFlowEditorContext()
 
   const editComponentOnClick = () => {
     var component = cloneFormComponent(
@@ -16,10 +15,6 @@ export const WorkFlowEditor = () => {
     editComponent(0, component)
   }
 
-  const swapTwoComponentsOnClick = () => {
-    swapTwoComponents(0, 1)
-  }
-
   return (
     <>
       <h1>Workflow Editor </h1>
@@ -27,7 +22,6 @@ export const WorkFlowEditor = () => {
       <ActiveFormDisplay />
       <StateDisplay />
       <button onClick={editComponentOnClick}>Edit Component</button>
-      <button onClick={swapTwoComponentsOnClick}>Swap Components</button>
     </>
   )
 }
