@@ -5,6 +5,7 @@ import { ComponentType } from "./workflowEditorState"
 export const ComponentLibrary = () => {
   return (
     <>
+      <h2>Component Library</h2>
       <ComponentOption type={ComponentType.Headline} name={"Head line"} />
       <ComponentOption type={ComponentType.InputBox} name={"Input box"} />
     </>

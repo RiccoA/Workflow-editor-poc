@@ -2,6 +2,7 @@ import { createContext, ReactElement, useContext } from "react"
 import {
   addComponentType,
   editComponentType,
+  getComponentType,
   removeComponentType,
   setSelectedComponentType,
   swapTwoComponentsType,
@@ -17,7 +18,8 @@ type MaybeContextType =
       removeComponentType,
       editComponentType,
       swapTwoComponentsType,
-      setSelectedComponentType
+      setSelectedComponentType,
+      getComponentType
     ]
 
 const Context = createContext<MaybeContextType>(undefined)
@@ -34,6 +36,7 @@ export const WorkflowEditorContextProvider = ({
     editComponent,
     swapTwoComponents,
     setSelectedComponent,
+    getComponent,
   ] = useWorkflowEditorState()
 
   return (
@@ -45,6 +48,7 @@ export const WorkflowEditorContextProvider = ({
         editComponent,
         swapTwoComponents,
         setSelectedComponent,
+        getComponent,
       ]}
     >
       {children}

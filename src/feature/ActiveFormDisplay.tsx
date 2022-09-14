@@ -25,7 +25,7 @@ export const ActiveFormComponentList = ({
 }: ActiveFormComponentListProps) => (
   <>
     {activeForm.components.map((component, index) => (
-      <ActiveFormComponent index={index} component={component} />
+      <ActiveFormComponent key={index} index={index} component={component} />
     ))}
   </>
 )

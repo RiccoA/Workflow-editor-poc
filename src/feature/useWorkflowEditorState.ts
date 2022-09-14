@@ -25,13 +25,16 @@ export type setSelectedComponentType = (
   selectedComponent: ComponentIndex
 ) => void
 
+export type getComponentType = (index: ComponentIndex) => FormComponent
+
 export type useWorkflowEditorStateType = () => [
   WorkflowEditorState,
   addComponentType,
   removeComponentType,
   editComponentType,
   swapTwoComponentsType,
-  setSelectedComponentType
+  setSelectedComponentType,
+  getComponentType
 ]
 
 export const useWorkflowEditorState: useWorkflowEditorStateType = () => {
@@ -75,6 +78,13 @@ export const useWorkflowEditorState: useWorkflowEditorStateType = () => {
     [dispatch]
   )
 
+  const getComponent = useCallback(
+    (index: ComponentIndex) => {
+      return workflowEditorState.activeForm.components[index]
+    },
+    [workflowEditorState]
+  )
+
   return [
     workflowEditorState,
     addComponent,
@@ -82,6 +92,7 @@ export const useWorkflowEditorState: useWorkflowEditorStateType = () => {
     editComponent,
     swapTwoComponents,
     setSelectedComponent,
+    getComponent,
   ]
 }
 const reducer = (draft: WorkflowEditorState, action: any) => {
