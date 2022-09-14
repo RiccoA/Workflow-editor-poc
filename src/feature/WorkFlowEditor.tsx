@@ -1,23 +1,12 @@
+import { ActiveFormDisplay } from "./ActiveFormDisplay"
 import { ComponentLibrary } from "./ComponentLibrary"
+import { StateDisplay } from "./StateDisplay"
 import { useWorkFlowEditorContext } from "./WorkflowEditorContext"
-import { cloneFormComponent, ComponentType } from "./workflowEditorState"
+import { cloneFormComponent } from "./workflowEditorState"
 
 export const WorkFlowEditor = () => {
-  const [
-    workflowEditorState,
-    addComponent,
-    removeComponent,
-    editComponent,
-    swapTwoComponents,
-  ] = useWorkFlowEditorContext()
-
-  const addOnClick = () => {
-    addComponent(ComponentType.Headline)
-  }
-
-  const removeOnClick = () => {
-    removeComponent(0)
-  }
+  const [workflowEditorState, , , editComponent, swapTwoComponents] =
+    useWorkFlowEditorContext()
 
   const editComponentOnClick = () => {
     var component = cloneFormComponent(
@@ -35,8 +24,8 @@ export const WorkFlowEditor = () => {
     <>
       <h1>Workflow Editor </h1>
       <ComponentLibrary />
-      <pre>{JSON.stringify(workflowEditorState, null, 2)}</pre>
-      <button onClick={removeOnClick}>Remove Component</button>
+      <ActiveFormDisplay />
+      <StateDisplay />
       <button onClick={editComponentOnClick}>Edit Component</button>
       <button onClick={swapTwoComponentsOnClick}>Swap Components</button>
     </>

@@ -47,8 +47,8 @@ export class ComponentLibrary {
   componentTypes: ComponentType[] = []
 }
 export enum ComponentType {
-  Headline,
-  InputBox,
+  Headline = "headline",
+  InputBox = "inputBox",
 }
 
 export type ComponentSchema = {
