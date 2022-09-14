@@ -1,3 +1,4 @@
+import { ComponentLibrary } from "./ComponentLibrary"
 import { useWorkFlowEditorContext } from "./WorkflowEditorContext"
 import { cloneFormComponent, ComponentType } from "./workflowEditorState"
 
@@ -33,8 +34,8 @@ export const WorkFlowEditor = () => {
   return (
     <>
       <h1>Workflow Editor </h1>
+      <ComponentLibrary />
       <pre>{JSON.stringify(workflowEditorState, null, 2)}</pre>
-      <button onClick={addOnClick}>Add Component</button>
       <button onClick={removeOnClick}>Remove Component</button>
       <button onClick={editComponentOnClick}>Edit Component</button>
       <button onClick={swapTwoComponentsOnClick}>Swap Components</button>
