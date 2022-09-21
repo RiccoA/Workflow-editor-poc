@@ -1,3 +1,5 @@
+import { ExportComponentType } from "./ExportComponentType"
+
 export interface WorkflowEditorState {
   activeForm: WorkflowForm
   selectedComponent: MaybeComponentIndex
@@ -34,7 +36,7 @@ export const cloneFormComponent = (component: FormComponent) => {
   return clone
 }
 
-export const createFormComponent = (type: ComponentType) => {
+export const createFormComponent = (type: ExportComponentType) => {
   const component: FormComponent = {
     schema: {
       type: type,
@@ -46,16 +48,12 @@ export const createFormComponent = (type: ComponentType) => {
 }
 
 export class ComponentLibrary {
-  componentTypes: ComponentType[] = []
-}
-export enum ComponentType {
-  Headline = "headline",
-  InputBox = "inputBox",
+  componentTypes: ExportComponentType[] = []
 }
 
 export type ComponentSchema = {
-  type: ComponentType
+  type: ExportComponentType
 }
 
 export type ComponentIndex = number
-export type MaybeComponentIndex = ComponentIndex | undefined 
+export type MaybeComponentIndex = ComponentIndex | undefined
