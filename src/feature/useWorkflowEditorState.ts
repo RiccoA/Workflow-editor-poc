@@ -1,9 +1,9 @@
 import { useCallback } from "react"
 import { useImmerReducer } from "use-immer"
+import { ComponentType } from "./ComponentType"
 import {
   FormComponent,
   ComponentIndex,
-  ComponentType,
   createFormComponent,
   cloneFormComponent,
   createWorkflowEditorState,

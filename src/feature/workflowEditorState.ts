@@ -1,3 +1,5 @@
+import { ComponentType } from "./ComponentType"
+
 export interface WorkflowEditorState {
   activeForm: WorkflowForm
   selectedComponent: MaybeComponentIndex
@@ -48,14 +50,10 @@ export const createFormComponent = (type: ComponentType) => {
 export class ComponentLibrary {
   componentTypes: ComponentType[] = []
 }
-export enum ComponentType {
-  Headline = "headline",
-  InputBox = "inputBox",
-}
 
 export type ComponentSchema = {
   type: ComponentType
 }
 
 export type ComponentIndex = number
-export type MaybeComponentIndex = ComponentIndex | undefined 
+export type MaybeComponentIndex = ComponentIndex | undefined

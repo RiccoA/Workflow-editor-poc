@@ -5,6 +5,7 @@ import { StateDisplay } from "./StateDisplay"
 import { DndContext } from "@dnd-kit/core"
 import { useCallback } from "react"
 import { useWorkFlowEditorContext } from "./WorkflowEditorContext"
+import { TestForm } from "./generateScript/TestForm"
 
 export const WorkFlowEditor = () => {
   const [, addComponent] = useWorkFlowEditorContext()
@@ -27,6 +28,7 @@ export const WorkFlowEditor = () => {
     <>
       <DndContext onDragEnd={dragEndHandler}>
         <h1>Workflow Editor </h1>
+        <TestForm />
         <ComponentLibrary />
         <ActiveFormDisplay />
         <SelectedComponentProperties />
