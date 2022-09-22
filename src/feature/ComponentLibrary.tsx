@@ -1,7 +1,7 @@
 import { useCallback } from "react"
 import { useWorkFlowEditorContext } from "./WorkflowEditorContext"
-import { ComponentType } from "./workflowEditorState"
 import { useDraggable } from "@dnd-kit/core"
+import { ComponentType } from "./ComponentType"
 
 export const ComponentLibrary = () => {
   return (

@@ -1,0 +1,8 @@
+{ "componentSchemas": [
+  { "name": "SingleLineText", "type": "1", "properties": [ "className" ] },
+  {
+    "name": "SelectList",
+    "type": "3",
+    "properties": [ "isRequired", "options" ]
+  }
+] }

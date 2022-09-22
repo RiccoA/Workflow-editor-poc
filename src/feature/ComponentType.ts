@@ -1,4 +1,4 @@
-export enum ExportComponentType {
+export enum ComponentType {
   Headline = "headline",
   InputBox = "inputBox",
 }

@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useImmerReducer } from "use-immer"
-import { ExportComponentType } from "./ExportComponentType"
+import { ComponentType } from "./ComponentType"
 import {
   FormComponent,
   ComponentIndex,
@@ -10,10 +10,7 @@ import {
   WorkflowEditorState,
 } from "./workflowEditorState"
 
-export type addComponentType = (
-  type: ExportComponentType,
-  index?: number
-) => void
+export type addComponentType = (type: ComponentType, index?: number) => void
 export type removeComponentType = (indexToRemoveAt: ComponentIndex) => void
 export type editComponentType = (
   indexToEditAt: ComponentIndex,
@@ -47,7 +44,7 @@ export const useWorkflowEditorState: useWorkflowEditorStateType = () => {
   )
 
   const addComponent = useCallback(
-    (type: ExportComponentType, index: ComponentIndex = 0) => {
+    (type: ComponentType, index: ComponentIndex = 0) => {
       dispatch({ type: "add", payload: { type } })
     },
     [dispatch]

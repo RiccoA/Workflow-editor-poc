@@ -1,6 +1,7 @@
 import { renderHook, act } from "@testing-library/react"
+import { ComponentType } from "./ComponentType"
 import { useWorkflowEditorState } from "./useWorkflowEditorState"
-import { cloneFormComponent, ComponentType } from "./workflowEditorState"
+import { cloneFormComponent } from "./workflowEditorState"
 
 const current = (result: any) => {
   const [

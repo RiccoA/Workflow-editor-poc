@@ -1,4 +1,4 @@
-import { ExportComponentType } from "./ExportComponentType"
+import { ComponentType } from "./ComponentType"
 
 export interface WorkflowEditorState {
   activeForm: WorkflowForm
@@ -36,7 +36,7 @@ export const cloneFormComponent = (component: FormComponent) => {
   return clone
 }
 
-export const createFormComponent = (type: ExportComponentType) => {
+export const createFormComponent = (type: ComponentType) => {
   const component: FormComponent = {
     schema: {
       type: type,
@@ -48,11 +48,11 @@ export const createFormComponent = (type: ExportComponentType) => {
 }
 
 export class ComponentLibrary {
-  componentTypes: ExportComponentType[] = []
+  componentTypes: ComponentType[] = []
 }
 
 export type ComponentSchema = {
-  type: ExportComponentType
+  type: ComponentType
 }
 
 export type ComponentIndex = number
